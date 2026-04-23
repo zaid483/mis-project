@@ -72,7 +72,7 @@ npm install
 👤 **Zaid Afzalzada**  
  Full Stack Developer (Student Project)
 
-- GitHub: [your-username](https://github.com/your-username)
+- GitHub: [your-username](https://github.com/zaid483/mis-project.git)
 - LinkedIn: www.linkedin.com/in/zaid-afzal-a451a03b1
 - Email: zaidafz111@gmail.com
 

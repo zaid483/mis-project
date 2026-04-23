@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Student</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-blue-900 via-indigo-900 to-slate-950 min-h-screen flex items-center justify-center text-white p-4">
+
+  <!-- CARD -->
+  <div class="w-full max-w-md sm:max-w-lg bg-white/10 backdrop-blur-xl border border-blue-400/20 rounded-3xl p-5 sm:p-6 lg:p-8 shadow-2xl">
+
+    <!-- HEADER -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+
+      <!-- Back Button -->
+      <a href="/students"
+         class="self-start sm:self-auto px-3 py-2 text-sm rounded-lg 
+         bg-white/10 border border-blue-400/20 
+         hover:bg-white/20 transition">
+        ← Back
+      </a>
+
+      <!-- Title -->
+      <h2 class="text-2xl sm:text-3xl font-bold text-cyan-300 text-center sm:text-left">
+        Add Student
+      </h2>
+
+      <!-- Spacer for alignment on desktop -->
+      <div class="hidden sm:block w-[60px]"></div>
+
+    </div>
+
+    <!-- FORM -->
+    <form action="/students" method="POST" class="space-y-4 sm:space-y-5">
+
+      <!-- Name -->
+      <div>
+        <label class="block mb-1 text-sm text-blue-200">Student Name</label>
+        <input 
+          type="text" 
+          name="name" 
+          required
+          class="w-full p-3 rounded-xl bg-white/10 border border-blue-400/20 outline-none focus:ring-2 focus:ring-cyan-400"
+          placeholder="Enter name"
+        />
+      </div>
+
+      <!-- Age -->
+      <div>
+        <label class="block mb-1 text-sm text-blue-200">Age</label>
+        <input 
+          type="number" 
+          name="age" 
+          required
+          class="w-full p-3 rounded-xl bg-white/10 border border-blue-400/20 outline-none focus:ring-2 focus:ring-cyan-400"
+          placeholder="Enter age"
+        />
+      </div>
+
+      <!-- Class -->
+      <div>
+        <label class="block mb-1 text-sm text-blue-200">Class</label>
+        <input 
+          type="text" 
+          name="className" 
+          required
+          class="w-full p-3 rounded-xl bg-white/10 border border-blue-400/20 outline-none focus:ring-2 focus:ring-cyan-400"
+          placeholder="Enter class"
+        />
+      </div>
+
+      <!-- Fee Status -->
+      <div>
+        <label class="block mb-1 text-sm text-blue-200">Fee Status</label>
+        <select 
+          name="feeStatus"
+          class="w-full p-3 rounded-xl bg-white/10 border border-blue-400/20 outline-none focus:ring-2 focus:ring-cyan-400"
+        >
+          <option value="paid">Paid</option>
+          <option value="unpaid">Unpaid</option>
+          <option value="partial">Partial</option>
+        </select>
+      </div>
+
+      <!-- Submit -->
+      <button 
+        type="submit"
+        class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 hover:scale-105 transition font-semibold shadow-lg"
+      >
+        Submit Student
+      </button>
+
+    </form>
+
+  </div>
+
+</body>
+</html>

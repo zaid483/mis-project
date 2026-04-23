@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Teacher</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body class="bg-gradient-to-br from-blue-900 via-indigo-900 to-slate-950 text-white min-h-screen">
+
+<div class="flex flex-col lg:flex-row min-h-screen">
+
+  <!-- Sidebar -->
+  <div class="w-full lg:w-72">
+    <%- include('partials/sidebar') %>
+  </div>
+
+  <!-- MAIN -->
+  <main class="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-8">
+
+    <div class="w-full max-w-md sm:max-w-xl bg-white/10 backdrop-blur-xl border border-blue-400/20 rounded-3xl p-5 sm:p-6 lg:p-8 shadow-2xl">
+
+      <!-- HEADER -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+
+        <!-- Back Button -->
+        <a href="/teachers"
+           class="self-start sm:self-auto px-3 py-2 text-sm rounded-lg 
+           bg-white/10 border border-blue-400/20 
+           hover:bg-white/20 transition">
+          ← Back
+        </a>
+
+        <!-- Title -->
+        <h2 class="text-2xl sm:text-3xl font-bold text-cyan-300 text-center sm:text-left">
+          <i class="fa-solid fa-chalkboard-user"></i> Add Teacher
+        </h2>
+
+        <!-- spacer -->
+        <div class="hidden sm:block w-[60px]"></div>
+
+      </div>
+
+      <!-- FORM -->
+      <form action="/teachers" method="POST" class="space-y-4 sm:space-y-5">
+
+        <!-- Name -->
+        <div>
+          <label class="text-sm text-blue-200">Teacher Name</label>
+          <input
+            type="text"
+            name="name"
+            required
+            placeholder="Enter name"
+            class="w-full mt-1 p-3 rounded-xl bg-white/10 border border-blue-400/20 outline-none focus:ring-2 focus:ring-cyan-400"
+          />
+        </div>
+
+        <!-- Subject -->
+        <div>
+          <label class="text-sm text-blue-200">Subject</label>
+          <input
+            type="text"
+            name="subject"
+            required
+            placeholder="Enter subject"
+            class="w-full mt-1 p-3 rounded-xl bg-white/10 border border-blue-400/20 outline-none focus:ring-2 focus:ring-cyan-400"
+          />
+        </div>
+
+        <!-- Salary -->
+        <div>
+          <label class="text-sm text-blue-200">Salary</label>
+          <input
+            type="number"
+            name="salary"
+            required
+            placeholder="Enter salary"
+            class="w-full mt-1 p-3 rounded-xl bg-white/10 border border-blue-400/20 outline-none focus:ring-2 focus:ring-cyan-400"
+          />
+        </div>
+
+        <!-- Phone -->
+        <div>
+          <label class="text-sm text-blue-200">Phone (optional)</label>
+          <input
+            type="text"
+            name="phone"
+            placeholder="Enter phone number"
+            class="w-full mt-1 p-3 rounded-xl bg-white/10 border border-blue-400/20 outline-none focus:ring-2 focus:ring-cyan-400"
+          />
+        </div>
+
+        <!-- Submit -->
+        <button
+          type="submit"
+          class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 text-black font-semibold hover:scale-105 transition shadow-lg"
+        >
+          Save Teacher
+        </button>
+
+      </form>
+
+    </div>
+
+  </main>
+
+</div>
+
+</body>
+</html>

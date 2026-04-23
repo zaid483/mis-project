@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>School Dashboard</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white min-h-screen">
+
+<div class="flex flex-col lg:flex-row min-h-screen">
+
+  <!-- Sidebar -->
+  <%- include('partials/sidebar') %>
+
+  <!-- MAIN -->
+  <main class="flex-1 w-full px-4 sm:px-6 lg:px-10 py-6">
+
+    <!-- 🔥 FLUID FULL WIDTH SYSTEM (FIX FOR 4K) -->
+    <div class="w-full max-w-[1800px] 2xl:max-w-[2200px] mx-auto lg:mx-0">
+
+      <!-- Title -->
+      <h2 class="text-2xl sm:text-3xl 2xl:text-4xl font-bold mb-8 text-indigo-200">
+        Dashboard Overview
+      </h2>
+
+      <!-- CARDS -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
+
+        <!-- Card -->
+        <div class="p-6 2xl:p-8 rounded-2xl bg-slate-900/60 border border-white/5
+                    transition duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/10">
+
+          <h3 class="text-indigo-200 flex items-center gap-2 text-lg 2xl:text-xl">
+            <i class="fa-solid fa-users"></i> Students
+          </h3>
+
+          <p class="text-3xl 2xl:text-4xl font-bold mt-3"><%= studentsCount || 0 %></p>
+        </div>
+
+        <div class="p-6 2xl:p-8 rounded-2xl bg-slate-900/60 border border-white/5
+                    transition duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/10">
+          <h3 class="text-indigo-200 flex items-center gap-2 text-lg 2xl:text-xl">
+            <i class="fa-solid fa-person-chalkboard"></i> Teachers
+          </h3>
+          <p class="text-3xl 2xl:text-4xl font-bold mt-3"><%= teachersCount || 0 %></p>
+        </div>
+
+        <div class="p-6 2xl:p-8 rounded-2xl bg-slate-900/60 border border-white/5
+                    transition duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/10">
+          <h3 class="text-indigo-200 flex items-center gap-2 text-lg 2xl:text-xl">
+            <i class="fa-solid fa-coins"></i> Income
+          </h3>
+          <p class="text-3xl 2xl:text-4xl font-bold mt-3 text-emerald-300">
+            $<%= totalIncome || 0 %>
+          </p>
+        </div>
+
+        <div class="p-6 2xl:p-8 rounded-2xl bg-slate-900/60 border border-white/5
+                    transition duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/10">
+          <h3 class="text-indigo-200 flex items-center gap-2 text-lg 2xl:text-xl">
+            <i class="fa-solid fa-receipt"></i> Expense
+          </h3>
+          <p class="text-3xl 2xl:text-4xl font-bold mt-3 text-rose-300">
+            $<%= totalExpense || 0 %>
+          </p>
+        </div>
+
+        <div class="p-6 2xl:p-8 rounded-2xl bg-slate-900/60 border border-white/5
+                    transition duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/10">
+          <h3 class="text-indigo-200 flex items-center gap-2 text-lg 2xl:text-xl">
+            <i class="fa-solid fa-chart-line"></i> Profit
+          </h3>
+          <p class="text-3xl 2xl:text-4xl font-bold mt-3 text-green-300">
+            $<%= profit || 0 %>
+          </p>
+        </div>
+
+      </div>
+
+      <!-- CHARTS -->
+      <div class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+        <!-- BAR CHART -->
+        <div class="p-6 2xl:p-10 rounded-2xl bg-slate-900/40 border border-white/5
+                    h-[320px] 2xl:h-[420px]
+                    transition duration-300 hover:scale-[1.02] hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/10">
+
+          <h3 class="text-indigo-200 mb-4 text-sm 2xl:text-base font-semibold">
+            Financial Comparison
+          </h3>
+
+          <canvas id="barChart" class="!h-[240px] 2xl:!h-[320px]"></canvas>
+        </div>
+
+        <!-- DOUGHNUT -->
+        <div class="p-6 2xl:p-10 rounded-2xl bg-slate-900/40 border border-white/5
+                    h-[320px] 2xl:h-[420px]
+                    transition duration-300 hover:scale-[1.02] hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/10">
+
+          <h3 class="text-indigo-200 mb-4 text-sm 2xl:text-base font-semibold">
+            Income Distribution
+          </h3>
+
+          <canvas id="pieChart" class="!h-[240px] 2xl:!h-[320px]"></canvas>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- CHART SCRIPT -->
+<script>
+  const income = <%= totalIncome || 0 %>;
+  const expense = <%= totalExpense || 0 %>;
+
+  const ctxBar = document.getElementById('barChart').getContext('2d');
+
+  const gradientGreen = ctxBar.createLinearGradient(0, 0, 0, 300);
+  gradientGreen.addColorStop(0, "#34d399");
+  gradientGreen.addColorStop(1, "#065f46");
+
+  const gradientRed = ctxBar.createLinearGradient(0, 0, 0, 300);
+  gradientRed.addColorStop(0, "#fb7185");
+  gradientRed.addColorStop(1, "#7f1d1d");
+
+  new Chart(ctxBar, {
+    type: 'bar',
+    data: {
+      labels: ['Income', 'Expense'],
+      datasets: [{
+        data: [income, expense],
+        backgroundColor: [gradientGreen, gradientRed],
+        borderRadius: 12,
+        barThickness: 60
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: "#cbd5f5" }, grid: { display: false } },
+        y: { ticks: { color: "#94a3b8" }, grid: { color: "rgba(255,255,255,0.05)" } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('pieChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Income', 'Expense'],
+      datasets: [{
+        data: [income, expense],
+        backgroundColor: ['#10b981', '#fb7185'],
+        borderWidth: 0
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      cutout: "65%",
+      plugins: {
+        legend: {
+          labels: { color: "#cbd5f5" }
+        }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

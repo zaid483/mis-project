@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Students Table</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body class="bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white min-h-screen">
+
+<div class="flex flex-col lg:flex-row min-h-screen">
+
+  <!-- SIDEBAR -->
+  <%- include('partials/sidebar') %>
+
+  <!-- MAIN -->
+  <main class="flex-1 p-4 sm:p-6 lg:p-10">
+
+    <div class="w-full max-w-6xl xl:max-w-7xl 2xl:max-w-[1600px] mx-auto">
+
+      <!-- HEADER -->
+      <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-6 mb-10">
+
+        <h2 class="text-3xl sm:text-4xl font-bold text-indigo-200">
+          Students List
+        </h2>
+
+        <a href="/students/add"
+           class="flex items-center gap-3 px-5 py-3 rounded-xl
+                  bg-white/5 backdrop-blur-xl border border-white/10
+                  hover:bg-emerald-500/10 hover:border-emerald-400/40
+                  hover:scale-[1.03] transition">
+
+          <i class="fa-solid fa-user-plus text-emerald-300"></i>
+
+          <div>
+            <span class="text-sm font-medium">Add Student</span>
+            <p class="text-xs text-slate-400">Create new record</p>
+          </div>
+
+        </a>
+
+      </div>
+
+      <!-- TABLE -->
+      <div class="hidden md:block rounded-2xl border border-white/10 bg-slate-900/40 backdrop-blur-xl overflow-hidden">
+
+        <table class="w-full text-left">
+
+          <thead class="bg-slate-800/60 text-indigo-200">
+            <tr>
+              <th class="p-6">#</th>
+              <th class="p-6">Name</th>
+              <th class="p-6">Age</th>
+              <th class="p-6">Class</th>
+              <th class="p-6">Fee Status</th>
+              <th class="p-6">Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% students.forEach((student, index) => { %>
+              <tr class="border-t border-white/5 hover:bg-white/5 transition">
+
+                <td class="p-6"><%= index + 1 %></td>
+                <td class="p-6 font-semibold"><%= student.name %></td>
+                <td class="p-6 text-slate-300"><%= student.age %></td>
+                <td class="p-6 text-slate-300"><%= student.className %></td>
+
+                <td class="p-6">
+                  <% if(student.feeStatus === "paid") { %>
+                    <span class="text-emerald-400">Paid</span>
+                  <% } else if(student.feeStatus === "unpaid") { %>
+                    <span class="text-rose-400">Unpaid</span>
+                  <% } else { %>
+                    <span class="text-amber-300">Partial</span>
+                  <% } %>
+                </td>
+
+                <td class="p-6 flex gap-5">
+
+                  <!-- EDIT -->
+                  <a href="/students/edit/<%= student._id %>" class="text-cyan-300">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </a>
+
+                  <!-- DELETE -->
+                  <a href="#" 
+                     onclick="openDeleteModal('<%= student._id %>')" 
+                     class="text-rose-400 hover:scale-110 transition">
+                    <i class="fa-solid fa-trash text-xl"></i>
+                  </a>
+
+                </td>
+
+              </tr>
+            <% }) %>
+          </tbody>
+
+        </table>
+      </div>
+
+      <!-- MOBILE -->
+      <div class="md:hidden space-y-6">
+
+        <% students.forEach((student, index) => { %>
+
+          <div class="bg-slate-900/40 border border-white/10 rounded-2xl p-6 backdrop-blur-xl">
+
+            <h3 class="font-bold text-indigo-200 text-xl mb-2">
+              <%= student.name %>
+            </h3>
+
+            <p>Age: <%= student.age %></p>
+            <p>Class: <%= student.className %></p>
+
+            <div class="mt-3">
+              <% if(student.feeStatus === "paid") { %>
+                <span class="text-emerald-400">Paid</span>
+              <% } else if(student.feeStatus === "unpaid") { %>
+                <span class="text-rose-400">Unpaid</span>
+              <% } else { %>
+                <span class="text-amber-300">Partial</span>
+              <% } %>
+            </div>
+
+            <div class="flex gap-5 mt-4">
+
+              <a href="/students/edit/<%= student._id %>" class="text-cyan-300">
+                <i class="fa-solid fa-pen-to-square text-xl"></i>
+              </a>
+
+              <a href="#" 
+                 onclick="openDeleteModal('<%= student._id %>')" 
+                 class="text-rose-400">
+                <i class="fa-solid fa-trash text-xl"></i>
+              </a>
+
+            </div>
+
+          </div>
+
+        <% }) %>
+
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- DELETE MODAL -->
+<div id="deleteModal" class="fixed inset-0 hidden items-center justify-center bg-black/70 backdrop-blur-sm z-50">
+
+  <div class="bg-slate-900/80 border border-white/10 rounded-2xl p-8 w-full max-w-md text-center">
+
+    <i class="fa-solid fa-triangle-exclamation text-4xl text-rose-400 mb-4"></i>
+
+    <h3 class="text-xl font-bold mb-2">Delete Student</h3>
+    <p class="text-slate-300 mb-6">Are you sure? This cannot be undone.</p>
+
+    <div class="flex justify-center gap-4">
+
+      <button onclick="closeDeleteModal()" 
+              class="px-4 py-2 bg-gray-600 rounded">
+        Cancel
+      </button>
+
+      <a id="confirmDeleteBtn" 
+         class="px-4 py-2 bg-rose-500 text-black rounded">
+        Delete
+      </a>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- SCRIPT -->
+<script>
+  function openDeleteModal(id) {
+    const modal = document.getElementById("deleteModal");
+    const btn = document.getElementById("confirmDeleteBtn");
+
+    btn.href = "/students/delete/" + id;
+
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+  }
+
+  function closeDeleteModal() {
+    const modal = document.getElementById("deleteModal");
+    modal.classList.add("hidden");
+  }
+
+  window.onclick = function(e) {
+    const modal = document.getElementById("deleteModal");
+    if (e.target === modal) {
+      closeDeleteModal();
+    }
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Income</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-blue-900 via-indigo-900 to-slate-950 min-h-screen flex items-center justify-center text-white p-4">
+
+  <!-- CARD -->
+  <div class="w-full max-w-md sm:max-w-lg bg-white/10 backdrop-blur-xl border border-blue-400/20 rounded-3xl p-5 sm:p-6 lg:p-8 shadow-2xl">
+
+    <!-- HEADER -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+
+      <!-- Back Button -->
+      <a href="/income"
+         class="self-start sm:self-auto px-3 py-2 text-sm rounded-lg 
+         bg-white/10 border border-blue-400/20 
+         hover:bg-white/20 transition">
+        ← Back
+      </a>
+
+      <!-- Title -->
+      <h2 class="text-2xl sm:text-3xl font-bold text-cyan-300 text-center sm:text-left">
+        Add Income
+      </h2>
+
+      <!-- spacer -->
+      <div class="hidden sm:block w-[60px]"></div>
+
+    </div>
+
+    <!-- FORM -->
+    <form action="/income" method="POST" class="space-y-4 sm:space-y-5">
+
+      <!-- Amount -->
+      <div>
+        <label class="block mb-1 text-sm text-blue-200">Amount</label>
+        <input 
+          type="number" 
+          name="amount" 
+          required
+          class="w-full p-3 rounded-xl bg-white/10 border border-blue-400/20 outline-none focus:ring-2 focus:ring-cyan-400"
+          placeholder="Enter amount"
+        />
+      </div>
+
+      <!-- Source -->
+      <div>
+        <label class="block mb-1 text-sm text-blue-200">Source</label>
+        <input 
+          type="text" 
+          name="source" 
+          required
+          class="w-full p-3 rounded-xl bg-white/10 border border-blue-400/20 outline-none focus:ring-2 focus:ring-cyan-400"
+          placeholder="e.g. Student Fee"
+        />
+      </div>
+
+      <!-- Description -->
+      <div>
+        <label class="block mb-1 text-sm text-blue-200">Description</label>
+        <input 
+          type="text" 
+          name="description"
+          class="w-full p-3 rounded-xl bg-white/10 border border-blue-400/20 outline-none focus:ring-2 focus:ring-cyan-400"
+          placeholder="Optional description"
+        />
+      </div>
+
+      <!-- SUBMIT -->
+      <button 
+        type="submit"
+        class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 hover:scale-105 transition font-semibold shadow-lg"
+      >
+        Save Income
+      </button>
+
+    </form>
+
+  </div>
+
+</body>
+</html>

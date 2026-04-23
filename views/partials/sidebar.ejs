@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sidebar</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body class="bg-slate-950">
+
+<!-- Mobile Top Bar -->
+<div class="lg:hidden flex items-center justify-between p-4 bg-slate-900 text-white border-b border-white/10">
+  <h1 class="font-bold text-emerald-300">School Panel</h1>
+  <button id="menuBtn" class="text-2xl">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+</div>
+
+<!-- SIDEBAR -->
+<aside id="sidebar"
+  class="fixed lg:static top-0 left-0 z-50
+  w-72 xl:w-80 2xl:w-96 4xl:w-[420px]
+  flex-shrink-0
+  h-screen overflow-y-auto
+  bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950
+  border-r border-white/10
+  shadow-[0_0_30px_rgba(16,185,129,0.12)]
+  flex flex-col
+  p-6 2xl:p-8 4xl:p-10
+  transform -translate-x-full lg:translate-x-0 
+  transition-transform duration-300 ease-in-out">
+
+  <!-- LOGO -->
+  <div class="flex items-center gap-3 2xl:gap-4 mb-10 2xl:mb-14 p-4 2xl:p-6 rounded-2xl 
+    bg-white/5 border border-white/10 backdrop-blur-xl">
+
+    <div class="w-12 h-12 2xl:w-14 2xl:h-14 4xl:w-16 4xl:h-16 rounded-xl bg-emerald-500 flex items-center justify-center shadow-md">
+      <i class="fa-solid fa-graduation-cap text-white text-lg 2xl:text-xl 4xl:text-2xl"></i>
+    </div>
+
+    <div>
+      <h1 class="text-xl 2xl:text-2xl 4xl:text-3xl font-bold text-emerald-300">
+        School Panel
+      </h1>
+      <p class="text-xs 2xl:text-sm text-slate-400">
+        Management System
+      </p>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="space-y-2 2xl:space-y-3 text-sm 2xl:text-base">
+
+    <a href="/dashboard" class="nav-link">
+      <i class="fa-solid fa-chart-line text-emerald-400"></i>
+      Dashboard
+    </a>
+
+    <a href="/students" class="nav-link">
+      <i class="fa-solid fa-user-graduate text-emerald-400"></i>
+      Students
+    </a>
+
+    <a href="/teachers" class="nav-link">
+      <i class="fa-solid fa-chalkboard-user text-emerald-400"></i>
+      Teachers
+    </a>
+
+    <a href="/income" class="nav-link">
+      <i class="fa-solid fa-sack-dollar text-emerald-400"></i>
+      Income
+    </a>
+
+    <a href="/expense" class="nav-link">
+      <i class="fa-solid fa-money-bill-transfer text-emerald-400"></i>
+      Expense
+    </a>
+
+  </nav>
+
+</aside>
+
+<!-- Overlay -->
+<div id="overlay" class="hidden fixed inset-0 bg-black/60 z-40 lg:hidden"></div>
+
+<!-- STYLE -->
+<style>
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    color: #cbd5f5;
+    transition: all 0.25s ease;
+  }
+
+  /* 4K scaling improvements */
+  @media (min-width: 1536px) {
+    .nav-link {
+      padding: 16px 18px;
+      font-size: 16px;
+      gap: 14px;
+    }
+  }
+
+  @media (min-width: 2560px) {
+    .nav-link {
+      padding: 18px 22px;
+      font-size: 18px;
+      gap: 16px;
+    }
+  }
+
+  .nav-link:hover {
+    background: rgba(255,255,255,0.05);
+    color: white;
+    transform: translateX(6px);
+  }
+</style>
+
+<!-- SCRIPT -->
+<script>
+  const sidebar = document.getElementById("sidebar");
+  const menuBtn = document.getElementById("menuBtn");
+  const overlay = document.getElementById("overlay");
+
+  if(menuBtn){
+    menuBtn.addEventListener("click", () => {
+      sidebar.classList.remove("-translate-x-full");
+      overlay.classList.remove("hidden");
+    });
+  }
+
+  if(overlay){
+    overlay.addEventListener("click", () => {
+      sidebar.classList.add("-translate-x-full");
+      overlay.classList.add("hidden");
+    });
+  }
+</script>
+
+</body>
+</html>

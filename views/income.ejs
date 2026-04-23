@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Income Table</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 min-h-screen text-white">
+
+<div class="flex flex-col lg:flex-row min-h-screen">
+
+  <!-- SIDEBAR -->
+  <div class="w-full lg:w-72 flex-shrink-0">
+    <%- include('partials/sidebar') %>
+  </div>
+
+  <!-- MAIN -->
+  <main class="flex-1 p-4 sm:p-6 lg:p-10">
+
+    <!-- 🔥 ULTRA WIDE FIX FOR 4K -->
+    <div class="w-full max-w-6xl xl:max-w-7xl 2xl:max-w-[1600px] 3xl:max-w-[2000px] mx-auto">
+
+      <!-- HEADER -->
+      <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-6 mb-10">
+
+        <h2 class="text-3xl sm:text-4xl 2xl:text-5xl font-bold text-indigo-200">
+          Income List
+        </h2>
+
+<a href="/income/add"
+   class="flex items-center gap-4 px-6 py-4 rounded-xl
+          bg-white/5 backdrop-blur-xl
+          border border-white/10
+          text-slate-200
+          transition-all duration-300
+
+          hover:bg-white/10
+          hover:border-emerald-400/30
+          hover:shadow-md hover:shadow-emerald-500/10
+          hover:scale-[1.03]">
+
+  <!-- ICON (bigger + clearer) -->
+  <div class="w-11 h-11 flex items-center justify-center rounded-lg
+              bg-emerald-500/10 border border-emerald-400/20">
+    <i class="fa-solid fa-coins text-emerald-300 text-lg"></i>
+  </div>
+
+  <!-- TEXT -->
+  <div class="flex flex-col">
+    <span class="text-base font-medium">Add Income</span>
+    <span class="text-xs text-slate-400">Create new income record</span>
+  </div>
+
+</a>
+
+      </div>
+
+      <!-- TOTAL -->
+      <div class="mb-8 text-lg sm:text-xl 2xl:text-2xl text-slate-300">
+        Total Income:
+        <span class="font-bold text-emerald-400">$<%= totalIncome %></span>
+      </div>
+
+      <!-- ================= DESKTOP TABLE ================= -->
+      <div class="hidden md:block rounded-2xl border border-white/10 
+                  bg-slate-900/40 backdrop-blur-xl overflow-hidden">
+
+        <table class="w-full text-left">
+
+          <thead class="bg-slate-800/60 text-indigo-200">
+            <tr class="text-base 2xl:text-lg">
+              <th class="p-6">#</th>
+              <th class="p-6">Amount</th>
+              <th class="p-6">Source</th>
+              <th class="p-6">Description</th>
+              <th class="p-6">Date</th>
+            </tr>
+          </thead>
+
+          <tbody class="text-base 2xl:text-lg">
+
+            <% incomes.forEach((inc, index) => { %>
+              <tr class="border-t border-white/5 
+                         hover:bg-white/5 transition duration-300">
+
+                <td class="p-6"><%= index + 1 %></td>
+
+                <td class="p-6 text-emerald-400 font-bold">
+                  $<%= inc.amount %>
+                </td>
+
+                <td class="p-6 text-slate-300"><%= inc.source %></td>
+
+                <td class="p-6 text-slate-400">
+                  <%= inc.description || "N/A" %>
+                </td>
+
+                <td class="p-6 text-sm 2xl:text-base text-slate-500">
+                  <%= new Date(inc.date).toDateString() %>
+                </td>
+
+              </tr>
+            <% }) %>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+      <!-- ================= MOBILE ================= -->
+      <div class="md:hidden space-y-6">
+
+        <% incomes.forEach((inc, index) => { %>
+
+          <div class="bg-slate-900/40 border border-white/10 
+                      rounded-2xl p-6 backdrop-blur-xl
+                      hover:scale-[1.02] transition">
+
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="font-bold text-emerald-400 text-xl">
+                $<%= inc.amount %>
+              </h3>
+              <span class="text-sm text-slate-400">#<%= index + 1 %></span>
+            </div>
+
+            <p class="text-base text-slate-300">Source: <%= inc.source %></p>
+            <p class="text-base text-slate-400">
+              Description: <%= inc.description || "N/A" %>
+            </p>
+
+            <p class="text-sm text-slate-500 mt-2">
+              Date: <%= new Date(inc.date).toDateString() %>
+            </p>
+
+          </div>
+
+        <% }) %>
+
+      </div>
+
+    </div>
+  </main>
+
+</div>
+
+</body>
+</html>

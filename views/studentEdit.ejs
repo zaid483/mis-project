@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Student</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-blue-900 via-indigo-900 to-slate-950 min-h-screen flex items-center justify-center p-4 text-white">
+
+  <!-- Glass Card -->
+  <div class="w-full max-w-lg backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl shadow-2xl p-8">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-8">
+      <h2 class="text-3xl font-bold text-cyan-300">Edit Student</h2>
+
+      <a href="/students"
+         class="text-sm px-4 py-2 bg-white/10 border border-white/20 rounded-xl hover:bg-white/20 transition">
+        ← Back
+      </a>
+    </div>
+
+    <!-- Form -->
+    <form action="/students/update/<%= student._id %>" method="POST" class="space-y-6">
+
+      <!-- Name -->
+      <div>
+        <label class="block text-sm text-gray-300 mb-1">Full Name</label>
+        <input 
+          type="text" 
+          name="name" 
+          value="<%= student.name %>" 
+          class="w-full p-3 rounded-xl bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition"
+          placeholder="Enter full name"
+          required
+        />
+      </div>
+
+      <!-- Age + Class -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        <div>
+          <label class="block text-sm text-gray-300 mb-1">Age</label>
+          <input 
+            type="number" 
+            name="age" 
+            value="<%= student.age %>" 
+            class="w-full p-3 rounded-xl bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition"
+            placeholder="Age"
+            required
+          />
+        </div>
+
+        <div>
+          <label class="block text-sm text-gray-300 mb-1">Class</label>
+          <input 
+            type="text" 
+            name="className" 
+            value="<%= student.className %>" 
+            class="w-full p-3 rounded-xl bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition"
+            placeholder="Class"
+            required
+          />
+        </div>
+
+      </div>
+
+      <!-- Fee Status -->
+      <div>
+        <label class="block text-sm text-gray-300 mb-1">Fee Status</label>
+        <select 
+          name="feeStatus" 
+          class="w-full p-3 rounded-xl bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition"
+        >
+          <option value="paid" <%= student.feeStatus === "paid" ? "selected" : "" %>>Paid</option>
+          <option value="unpaid" <%= student.feeStatus === "unpaid" ? "selected" : "" %>>Unpaid</option>
+          <option value="partial" <%= student.feeStatus === "partial" ? "selected" : "" %>>Partial</option>
+        </select>
+      </div>
+
+      <!-- Buttons -->
+      <div class="flex justify-between items-center pt-4">
+
+        <!-- Cancel -->
+        <a href="/students"
+           class="px-5 py-2 rounded-xl bg-red-400/80 hover:bg-red-400 text-black font-medium transition shadow-md">
+          Cancel
+        </a>
+
+        <!-- Submit -->
+        <button 
+          class="px-6 py-2 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 text-black font-semibold hover:scale-105 transition shadow-lg">
+          Update Student
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</body>
+</html>

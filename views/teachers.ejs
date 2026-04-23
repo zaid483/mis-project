@@ -100,9 +100,9 @@
 
                 <td class="p-6 flex gap-5">
 
-                  <button class="text-indigo-300 hover:scale-110 transition">
-                    <i class="fa-solid fa-pen-to-square text-xl"></i>
-                  </button>
+                   <a href="/teachers/edit/<%= teacher._id %>" class="text-cyan-300">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </a>
 
                   <a href="/teachers/delete/<%= teacher._id %>"
                      onclick="return confirm('Are you sure?')"
